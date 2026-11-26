@@ -14,6 +14,11 @@ REVIEW = (
 
 
 def main() -> None:
+    # Self-check: the review must stay one line of 1-120 characters, or
+    # the entry is invalid — fail loudly instead of writing a bad file.
+    if not (1 <= len(REVIEW) <= 120) or "\n" in REVIEW:
+        raise ValueError("review must be one line of 1-120 characters")
+    REVIEW.encode("utf-8")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     target = os.path.join(out_dir, "entry.txt")
